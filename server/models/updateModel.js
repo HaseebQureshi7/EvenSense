@@ -4,7 +4,7 @@ const updateSchema = new SchemaType({
   title: { type: String, required: true },
   ofProject: { type: Schema.Types.ObjectId, ref: 'Project', required: true },
   updateBy: { type: Schema.Types.ObjectId, ref: 'User', required: true }
-});
+},{timestamps : true});
 
 const Update = mongoose.model('Update', updateSchema);
 
