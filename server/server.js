@@ -30,5 +30,17 @@ server.use("*", () => {
 });
 
 server.listen(process.env.PORT, () => {
-  console.log("Server Is Running On PORT", process.env.PORT);
+  console.log("Server is running on PORT", process.env.PORT);
 });
+
+
+// LOGIN
+// SIGNUP (USER <MANAGER> )
+// SIGNUP (TEAM MEMBER)
+// RUD USER
+// CRUD COMPANY
+// CRUD PROJECT
+// CRUD STAGE
+// CRUD TASK
+// CRUD UPDATE
+// CRUD COMMENT
