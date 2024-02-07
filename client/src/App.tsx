@@ -2,6 +2,7 @@ import { ThemeProvider } from "@emotion/react";
 import ProjectTheme from "./styles/ProjectTheme";
 import { Box } from "@mui/material";
 import MainNavigator from "./navigation/MainNavigator";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         }}
       >
         <MainNavigator />
+        <ReactQueryDevtools />
       </Box>
     </ThemeProvider>
   );

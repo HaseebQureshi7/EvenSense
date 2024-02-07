@@ -1,7 +1,14 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import DFlex from "./../../styles/Flex";
+import { useAxios } from "../../axios/useAxios";
+import { useMutation } from "@tanstack/react-query";
 
 function Landing() {
+
+    const loginMF = (loginData:any) => {
+        return useAxios.post("login", loginData)
+    }
+
   return (
     <Box sx={{ width: "100%", height: "100vh", ...DFlex, gap: "50px" }}>
       <Box
