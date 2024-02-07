@@ -1,5 +1,5 @@
-import catchAsync from "../utils/catchAsync";
-import User from "../models/userModel";
+import catchAsync from "../utils/catchAsync.js";
+import User from "../models/userModel.js";
 
 const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;

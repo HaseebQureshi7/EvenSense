@@ -1,5 +1,5 @@
-import catchAsync from "../utils/catchAsync";
-import User from "../models/userModel";
+import catchAsync from "../utils/catchAsync.js";
+import User from "../models/userModel.js";
 
 const getAllUsers = catchAsync(async (req, res) => {
   const users = await User.find();
