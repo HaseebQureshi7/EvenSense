@@ -9,11 +9,12 @@ import updateRouter from "./routes/updateRoutes.js";
 import commentRouter from "./routes/commentRoutes.js";
 import stageRouter from "./routes/stageRoutes.js";
 
-configDotenv();
 
 const server = express();
 
+configDotenv();
 DbConnection();
+
 
 server.use("api/v1/users", userRouter);
 server.use("api/v1/tasks", taskRouter);
@@ -22,6 +23,7 @@ server.use("api/v1/project", projectRouter);
 server.use("api/v1/stage", stageRouter);
 server.use("api/v1/update", updateRouter);
 server.use("api/v1/comment", commentRouter);
+server.use("api/v1/auth", authRouter)
 
 server.use("*", () => {
   console.log("Not Found");
