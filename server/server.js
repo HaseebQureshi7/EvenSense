@@ -9,11 +9,16 @@ import updateRouter from "./routes/updateRoutes.js";
 import commentRouter from "./routes/commentRoutes.js";
 import stageRouter from "./routes/stageRoutes.js";
 import authRouter from "./routes/authRoutes.js";
+import cors from "cors"
 
 const server = express();
 
 configDotenv();
 DbConnection();
+
+server.use(express.urlencoded({ extended: false }));
+server.use(express.json());
+server.use(cors());
 
 
 server.use("api/v1/users", userRouter);
