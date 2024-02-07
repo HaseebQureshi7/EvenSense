@@ -8,7 +8,7 @@ import companyRouter from "./routes/companyRoutes.js";
 import updateRouter from "./routes/updateRoutes.js";
 import commentRouter from "./routes/commentRoutes.js";
 import stageRouter from "./routes/stageRoutes.js";
-
+import authRouter from "./routes/authRoutes.js";
 
 const server = express();
 
