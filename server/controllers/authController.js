@@ -2,6 +2,8 @@ import catchAsync from "../utils/catchAsync.js";
 import User from "../models/userModel.js";
 import Company from "../models/companyModel.js";
 
+//@description     Login
+//@route           POST /api/v1/auth/login
 const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -22,6 +24,9 @@ const login = catchAsync(async (req, res, next) => {
   });
 });
 
+
+//@description     SignUp
+//@route           POST /api/v1/auth/signup
 const signup = catchAsync(async (req, res, next) => {
   const { fName, lName, email, password } = req.body;
 

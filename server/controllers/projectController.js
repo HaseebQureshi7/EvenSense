@@ -1,6 +1,8 @@
 import catchAsync from "../utils/catchAsync.js";
 import Project from "../models/projectModel.js";
 
+//@description     Get All Projects
+//@route           GET /api/v1/project
 const getAllProjects = catchAsync(async (req, res) => {
   const projects = await Project.find().populate("members");
   res.status(200).json({
@@ -10,6 +12,9 @@ const getAllProjects = catchAsync(async (req, res) => {
   });
 });
 
+
+//@description     Creates A Project
+//@route           POST /api/v1/project
 const createProject = catchAsync(async (req, res, next) => {
   const body = req.body;
   const project = await Project.create(body);
@@ -24,6 +29,9 @@ const createProject = catchAsync(async (req, res, next) => {
   });
 });
 
+
+//@description     Get Project With ID
+//@route           GET /api/v1/project/:id
 const getProjectById = catchAsync(async (req, res) => {
   const _id = req.params.id;
   const project = await Project.find({ _id }).populate("members");
@@ -34,6 +42,9 @@ const getProjectById = catchAsync(async (req, res) => {
   });
 });
 
+
+//@description     Update Project With ID
+//@route           PATCH /api/v1/project/:id
 const updateProject = catchAsync(async (req, res) => {
   const _id = req.params.id;
   const project = await Project.findByIdAndUpdate(_id, req.body, {
@@ -46,12 +57,18 @@ const updateProject = catchAsync(async (req, res) => {
   });
 });
 
+
+//@description     Delete Project With ID
+//@route           DELETE /api/v1/project/:id
 const deleteProject = catchAsync(async (req, res) => {
   const _id = req.params.id;
   await Project.findByIdAndDelete({ _id });
   res.status(200).send("Project Deleted");
 });
 
+
+//@description     Get Project With Manager ID
+//@route           POST /api/v1/project/manager
 const getProjectsWithManagerId = catchAsync(async (req, res, next) => {
   const _id = req.body;
 

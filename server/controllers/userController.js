@@ -1,6 +1,8 @@
 import catchAsync from "../utils/catchAsync.js";
 import User from "../models/userModel.js";
 
+//@description     Get All Users
+//@route           GET /api/v1/users
 const getAllUsers = catchAsync(async (req, res) => {
   const users = await User.find();
   res.status(200).json({
@@ -10,6 +12,9 @@ const getAllUsers = catchAsync(async (req, res) => {
   });
 });
 
+
+//@description     Get User With ID
+//@route           GET /api/v1/users/:id
 const getUserById = catchAsync(async (req, res) => {
   const _id = req.params.id;
   const user = await User.find({ _id }).populate({
@@ -21,6 +26,9 @@ const getUserById = catchAsync(async (req, res) => {
   });
 });
 
+
+//@description     Update User With ID
+//@route           PATCH /api/v1/users/:id
 const updateUser = catchAsync(async (req, res) => {
   const _id = req.params.id;
   const user = await User.findByIdAndUpdate(_id, req.body, {
@@ -34,6 +42,9 @@ const updateUser = catchAsync(async (req, res) => {
   });
 });
 
+
+//@description     Delete User With ID
+//@route           DELETE /api/v1/users/:id
 const deleteUser = catchAsync(async (req, res) => {
   const _id = req.params.id;
   await User.findByIdAndDelete({_id});

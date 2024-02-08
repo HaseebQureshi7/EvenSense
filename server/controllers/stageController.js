@@ -2,6 +2,9 @@ import catchAsync from "../utils/catchAsync.js";
 import Phase from "../models/stageModel.js";
 import Project from "../models/projectModel.js";
 
+
+//@description     Get All Stages
+//@route           GET /api/v1/stage
 const getAllStages = catchAsync(async (req, res) => {
   let stages = await Phase.find().populate("ofProject");
 
@@ -15,6 +18,9 @@ const getAllStages = catchAsync(async (req, res) => {
   });
 });
 
+
+//@description     Creates A Stage
+//@route           POST /api/v1/stage
 const createStage = catchAsync(async (req, res, next) => {
   const body = req.body;
   const stage = await Phase.create(body);
@@ -29,6 +35,9 @@ const createStage = catchAsync(async (req, res, next) => {
   });
 });
 
+
+//@description     Get Stage With ID
+//@route           GET /api/v1/stage/:id
 const getStageById = catchAsync(async (req, res) => {
   const _id = req.params.id;
   let stage = await Phase.find({_id}).populate("ofProject");
@@ -43,6 +52,9 @@ const getStageById = catchAsync(async (req, res) => {
   });
 });
 
+
+//@description     Update Stage With ID
+//@route           PATCH /api/v1/stage/:id
 const updateStage = catchAsync(async (req, res) => {
   const _id = req.params.id;
   const stage = await Phase.findByIdAndUpdate(_id, req.body, {
@@ -55,6 +67,9 @@ const updateStage = catchAsync(async (req, res) => {
   });
 });
 
+
+//@description     Delete Stage With ID
+//@route           DELETE /api/v1/stage/:id
 const deleteStage = catchAsync(async (req, res) => {
   const _id = req.params.id;
   await Phase.findByIdAndDelete({ _id });
