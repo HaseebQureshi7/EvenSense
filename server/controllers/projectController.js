@@ -10,19 +10,19 @@ const getAllProjects = catchAsync(async (req, res) => {
   });
 });
 
-const createProject = catchAsync(async (req, res, next) =>{
-    const body = req.body
-    const project = await Project.create(body)
+const createProject = catchAsync(async (req, res, next) => {
+  const body = req.body;
+  const project = await Project.create(body);
 
-    if(!project){
-        return res.status(400).send("Project not created")
-    }
+  if (!project) {
+    return res.status(400).send("Project not created");
+  }
 
-    res.status(201).json({
-        message : "Project Created",
-        project
-    })
-})
+  res.status(201).json({
+    message: "Project Created",
+    project,
+  });
+});
 
 const getProjectById = catchAsync(async (req, res) => {
   const _id = req.params.id;
@@ -48,8 +48,30 @@ const updateProject = catchAsync(async (req, res) => {
 
 const deleteProject = catchAsync(async (req, res) => {
   const _id = req.params.id;
-  await Project.findByIdAndDelete({_id});
+  await Project.findByIdAndDelete({ _id });
   res.status(200).send("Project Deleted");
 });
 
-export { getAllProjects, getProjectById, updateProject, deleteProject , createProject};
+const getProjectsWithManagerId = catchAsync(async (req, res, next) => {
+  const _id = req.body;
+
+  const projects = await Project.find({ owner: _id }).populate("members");
+  if (!projects) {
+    return res.status(404).send("No Projects Found");
+  }
+
+  res.status(200).json({
+    message: "Projects Found",
+    count: projects.length,
+    projects,
+  });
+});
+
+export {
+  getAllProjects,
+  getProjectById,
+  updateProject,
+  deleteProject,
+  createProject,
+  getProjectsWithManagerId,
+};
