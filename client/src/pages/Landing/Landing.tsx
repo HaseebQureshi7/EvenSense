@@ -2,13 +2,15 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import DFlex from "./../../styles/Flex";
 import { useAxios } from "../../axios/useAxios";
 import { useMutation } from "@tanstack/react-query";
-import { FormEvent } from "react";
+import { FormEvent, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import UserDataContext from "../../context/UserDataContext";
 
 type lgDataTypes = { email: string; password: string };
 
 function Landing() {
   const navigate = useNavigate();
+  const { userData, setUserData } = useContext(UserDataContext);
 
   const loginMF = (loginData: lgDataTypes) => {
     return useAxios.post("auth/login", loginData);
@@ -17,8 +19,8 @@ function Landing() {
   const { mutate, status } = useMutation({
     mutationFn: loginMF,
     onSuccess: (data) => {
-      console.log(data.data);
-      navigate("/dashboard")
+      setUserData(data.data.user);
+      navigate("/dashboard");
     },
   });
 
@@ -88,15 +90,18 @@ function Landing() {
 
       <Typography>OR</Typography>
       <Button
-          type="submit"
-          onClick={() => navigate("/signup")}
-          variant="contained"
-          size="large"
-          sx={{ backgroundColor: status === "pending" ? "lightgrey" : "black", width:"30vw" }}
-          //   sx={{backgroundColor:'black', "&:hover" : { backgroundColor:"#333333" } }}
-        >
-          SIGNUP
-        </Button>
+        type="submit"
+        onClick={() => navigate("/signup")}
+        variant="contained"
+        size="large"
+        sx={{
+          backgroundColor: status === "pending" ? "lightgrey" : "black",
+          width: "30vw",
+        }}
+        //   sx={{backgroundColor:'black', "&:hover" : { backgroundColor:"#333333" } }}
+      >
+        SIGNUP
+      </Button>
     </Box>
   );
 }
