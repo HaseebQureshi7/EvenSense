@@ -5,6 +5,7 @@ const userSchema = new Schema(
     fName: { type: String, required: true },
     lName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
+    profilePicture: { type: String, default: "null" },
     password: { type: String, required: true },
     company: {
       type: Schema.Types.ObjectId,

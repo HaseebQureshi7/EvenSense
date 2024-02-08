@@ -39,11 +39,11 @@ server.listen(process.env.PORT, () => {
 });
 
 
-// LOGIN
-// SIGNUP (USER <MANAGER> )
+// LOGIN - done
+// SIGNUP (USER <MANAGER> ) - done
 // SIGNUP (TEAM MEMBER)
-// RUD USER
-// CRUD COMPANY
+// RUD USER - done
+// CRUD COMPANY - done
 // CRUD PROJECT
 // CRUD STAGE
 // CRUD TASK

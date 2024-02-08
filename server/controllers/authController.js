@@ -5,14 +5,14 @@ import Company from "../models/companyModel.js";
 const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    res.status(400).json({
+    return res.status(400).json({
       message: "Please provide email and password",
     });
   }
   const user = await User.findOne({ email, password });
 
   if (!user) {
-    res.status(401).json({
+    return res.status(401).json({
       message: "Invalid email or password",
     });
   }
@@ -35,7 +35,8 @@ const signup = catchAsync(async (req, res, next) => {
       lName,
       email,
       password,
-      company : company._id,
+      profilePicture: "https://api.dicebear.com/7.x/adventurer-neutral/svg?seed=" + fName,
+      company: company._id,
     });
 
     res.status(201).json({

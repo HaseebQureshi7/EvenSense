@@ -2,8 +2,9 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import DFlex from "./../../styles/Flex";
 import { useAxios } from "../../axios/useAxios";
 import { useMutation } from "@tanstack/react-query";
-import { FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { FormEvent, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Signup = () => {
   type sgDataTypes = {
@@ -16,10 +17,14 @@ const Signup = () => {
     return useAxios.post("auth/signup", signUpData);
   };
 
+  const navigate = useNavigate();
+  const [image, setImage] = useState("");
+
   const { mutate, status } = useMutation({
     mutationFn: loginMF,
     onSuccess: (data) => {
       console.log(data.data);
+      navigate("/dashboard");
     },
   });
 
@@ -34,6 +39,7 @@ const Signup = () => {
     mutate(signUpData);
     // console.log(loginData);
   }
+
   return (
     <Box sx={{ width: "100%", height: "100vh", ...DFlex, gap: "20px" }}>
       <Box
@@ -58,6 +64,7 @@ const Signup = () => {
         onSubmit={HandleLogin}
         component={"form"}
       >
+        <Box component={"img"} src={image}></Box>
         <Typography fontWeight={500} variant="h5">
           SIGNUP
         </Typography>
@@ -147,7 +154,6 @@ const Signup = () => {
           size="large"
           sx={{
             backgroundColor: status === "pending" ? "lightgrey" : "black",
-            width: "97.2%",
           }}
           //   sx={{backgroundColor:'black', "&:hover" : { backgroundColor:"#333333" } }}
         >
@@ -157,12 +163,17 @@ const Signup = () => {
 
       <Typography>OR</Typography>
       <Button
-        // color="secondary"
+        onClick={() => navigate("/")}
+        type="submit"
+        fullWidth
         variant="contained"
+        sx={{
+          backgroundColor: status === "pending" ? "lightgrey" : "black",
+          width: "30vw",
+        }}
         size="large"
-        sx={{ width: "17vw" }}
       >
-        <Link to={"/"} style={{textDecoration : "none",color : "white"}}>Login</Link>
+        LOGIN
       </Button>
     </Box>
   );
