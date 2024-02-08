@@ -2,9 +2,10 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import DFlex from "./../../styles/Flex";
 import { useAxios } from "../../axios/useAxios";
 import { useMutation } from "@tanstack/react-query";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import UserDataContext from "../../context/UserDataContext";
 
 const Signup = () => {
   type sgDataTypes = {
@@ -19,12 +20,14 @@ const Signup = () => {
 
   const navigate = useNavigate();
   const [image, setImage] = useState("");
+  const { userData, setUserData } = useContext(UserDataContext);
 
   const { mutate, status } = useMutation({
     mutationFn: loginMF,
     onSuccess: (data) => {
-      console.log(data.data);
+      // console.log(data.data);
       navigate("/dashboard");
+      setUserData(data.data.user);
     },
   });
 
