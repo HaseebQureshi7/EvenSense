@@ -3,12 +3,13 @@ import DFlex from "./../../styles/Flex";
 import { useAxios } from "../../axios/useAxios";
 import { useMutation } from "@tanstack/react-query";
 import { FormEvent } from "react";
+import { Link } from "react-router-dom";
 
 type lgDataTypes = { email: string; password: string };
 
 function Landing() {
   const loginMF = (loginData: lgDataTypes) => {
-    return useAxios.post("login", loginData);
+    return useAxios.post("auth/login", loginData);
   };
 
   const { mutate, status } = useMutation({
@@ -25,7 +26,6 @@ function Landing() {
       password: (e.currentTarget as HTMLFormElement).password.value,
     };
     mutate(loginData);
-    // console.log(loginData);
   }
 
   return (
@@ -90,7 +90,7 @@ function Landing() {
         size="large"
         sx={{ width: "30vw" }}
       >
-        SIGNUP
+        <Link to={"/signup"}  style={{textDecoration : "none",color : "white"}}>SIGNUP</Link>
       </Button>
     </Box>
   );

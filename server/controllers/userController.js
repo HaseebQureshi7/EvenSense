@@ -12,7 +12,9 @@ const getAllUsers = catchAsync(async (req, res) => {
 
 const getUserById = catchAsync(async (req, res) => {
   const _id = req.params.id;
-  const user = await User.find(_id);
+  const user = await User.find({ _id }).populate({
+    path: "company",
+  });
   res.status(200).json({
     message: "User Found",
     count: user.length,
@@ -42,4 +44,4 @@ const deleteUser = catchAsync(async (req, res) => {
   res.status(200).send("User Deleted");
 });
 
-export { getAllUsers, getUserById, updateUser, deleteUser};
+export { getAllUsers, getUserById, updateUser, deleteUser };

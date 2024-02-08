@@ -21,14 +21,14 @@ server.use(express.json());
 server.use(cors());
 
 
-server.use("api/v1/users", userRouter);
-server.use("api/v1/tasks", taskRouter);
-server.use("api/v1/company", companyRouter);
-server.use("api/v1/project", projectRouter);
-server.use("api/v1/stage", stageRouter);
-server.use("api/v1/update", updateRouter);
-server.use("api/v1/comment", commentRouter);
-server.use("api/v1/auth", authRouter)
+server.use("/api/v1/users", userRouter);
+server.use("/api/v1/tasks", taskRouter);
+server.use("/api/v1/company", companyRouter);
+server.use("/api/v1/project", projectRouter);
+server.use("/api/v1/stage", stageRouter);
+server.use("/api/v1/update", updateRouter);
+server.use("/api/v1/comment", commentRouter);
+server.use("/api/v1/auth", authRouter)
 
 server.use("*", () => {
   console.log("Not Found");
