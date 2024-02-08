@@ -28,6 +28,7 @@ const Signup = () => {
       // console.log(data.data);
       navigate("/dashboard");
       setUserData(data.data.user);
+      localStorage.setItem("user", data.data.user);
     },
   });
 

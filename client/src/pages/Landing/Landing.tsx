@@ -21,6 +21,7 @@ function Landing() {
     onSuccess: (data) => {
       setUserData(data.data.user);
       navigate("/dashboard");
+      localStorage.setItem("user", JSON.stringify(data.data.user));
     },
   });
 

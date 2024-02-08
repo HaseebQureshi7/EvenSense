@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import MainNavigator from "./navigation/MainNavigator";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import UserDataContext from "./context/UserDataContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GlobalSnackbar from "./ui/Snackbar";
 import { SnackbarTypes } from "./types/SnackbarTypes";
 import SnackbarContext from "./context/SnackbarContext";
@@ -16,6 +16,14 @@ function App() {
     message: "no message",
     severity: "success",
   });
+
+  useEffect(() => {
+    if (Object.keys(userData).length === 0) {
+      const user: any = localStorage.getItem("user");
+      console.log("Automatic Login");
+      setUserData(JSON.parse(user));
+    }
+  }, []);
 
   return (
     <UserDataContext.Provider value={{ userData, setUserData }}>
