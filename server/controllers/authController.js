@@ -1,5 +1,6 @@
 import catchAsync from "../utils/catchAsync.js";
 import User from "../models/userModel.js";
+import Company from "../models/companyModel.js";
 
 const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
@@ -22,20 +23,26 @@ const login = catchAsync(async (req, res, next) => {
 });
 
 const signup = catchAsync(async (req, res, next) => {
-    const {fName , lName, email, password, company} = req.body
+  const { fName, lName, email, password } = req.body;
 
+  const company = await Company.create({
+    name: fName + "'s Company",
+  });
+
+  if (company) {
     const user = await User.create({
-        fName,
-        lName,
-        email,
-        password,
-        company
-    })
+      fName,
+      lName,
+      email,
+      password,
+      company : company._id,
+    });
 
     res.status(201).json({
-        message : "Registered Successfully",
-        user
-    })
+      message: "Registered Successfully",
+      user,
+    });
+  }
 });
 
 export { login, signup };
