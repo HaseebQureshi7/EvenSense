@@ -17,7 +17,6 @@ const getUserById = catchAsync(async (req, res) => {
   });
   res.status(200).json({
     message: "User Found",
-    count: user.length,
     user,
   });
 });
@@ -37,10 +36,7 @@ const updateUser = catchAsync(async (req, res) => {
 
 const deleteUser = catchAsync(async (req, res) => {
   const _id = req.params.id;
-  await User.findByIdAndDelete(_id, req.body, {
-    new: true,
-    runValidators: false,
-  });
+  await User.findByIdAndDelete({_id});
   res.status(200).send("User Deleted");
 });
 
