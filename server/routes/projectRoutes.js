@@ -10,7 +10,7 @@ projectRouter.route("/").post(createProject); // POST /api/v1/project
 projectRouter.route("/").get(getAllProjects); // GET /api/v1/project
 
 // Route to get projects with a specific manager ID
-projectRouter.route("/manager").post(getProjectsWithManagerId); // POST /api/v1/project/manager
+projectRouter.route("/getallmanagerprojects/:mid").get(getProjectsWithManagerId); // POST /api/v1/project/manager
 
 // Route to get, update, or delete a project by ID
 projectRouter.route("/:id")

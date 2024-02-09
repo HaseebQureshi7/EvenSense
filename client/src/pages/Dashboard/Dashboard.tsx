@@ -21,12 +21,14 @@ function Dashboard() {
   const navigate = useNavigate();
 
   const getManProjects = () => {
-    return useAxios("project");
+    console.log(userData);
+    return useAxios(`project/getallmanagerprojects/${userData?._id}`);
   };
 
   const { data, status } = useQuery({
     queryFn: getManProjects,
     queryKey: ["All Manager Projects"],
+    enabled: Object.keys(userData).length !== 0,
   });
 
   const Proj = ({ proj }: any) => {

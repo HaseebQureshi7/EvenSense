@@ -70,7 +70,7 @@ const deleteProject = catchAsync(async (req, res) => {
 //@description     Get Project With Manager ID
 //@route           POST /api/v1/project/manager
 const getProjectsWithManagerId = catchAsync(async (req, res, next) => {
-  const _id = req.body;
+  const { mid: _id } = req.params
 
   const projects = await Project.find({ owner: _id }).populate("members");
   if (!projects) {
