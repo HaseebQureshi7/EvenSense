@@ -194,7 +194,7 @@ function Dashboard() {
               variant="outlined"
             />
             <Button
-              // onClick={() => navigate("/")}
+              onClick={() => navigate("/addProject")}
               type="submit"
               variant="contained"
               sx={{
