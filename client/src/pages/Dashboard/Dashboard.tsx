@@ -11,13 +11,15 @@ import {
 import { useAxios } from "../../axios/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../components/Navbar/Navbar";
+import { UserDataContextTypes } from "../../types/UserDataContextTypes";
 
 type udConts = {
   userData: UserTypes;
 };
 
 function Dashboard() {
-  const { userData }: udConts = useContext(UserDataContext);
+  const { userData }: UserDataContextTypes = useContext(UserDataContext);
   const navigate = useNavigate();
 
   const getManProjects = () => {
@@ -98,65 +100,7 @@ function Dashboard() {
       }}
     >
       {/* header */}
-      <Box
-        sx={{
-          width: "100%",
-          height: "50px",
-          borderBottom: "2px solid black",
-          ...DFlex,
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          px: "15px",
-        }}
-      >
-        {/* part 1 */}
-        <Box
-          sx={{
-            ...DFlex,
-            flexDirection: "row",
-            gap: "15px",
-          }}
-        >
-          <Box
-            component={"img"}
-            src="/images/logo.png"
-            sx={{ width: "30px", aspectRatio: 1 }}
-          />
-          <Typography variant="h5" fontWeight={500}>
-            {userData?.fName + " " + userData?.lName}
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              backgroundColor: "black",
-              borderRadius: "100px",
-              color: "white",
-              padding: "2.5px 15px",
-            }}
-          >
-            {userData?.role}
-          </Typography>
-        </Box>
-        {/* part 2 */}
-        <Box
-          sx={{
-            ...DFlex,
-            flexDirection: "row",
-            gap: "25px",
-          }}
-        >
-          <DashIcon sx={{ width: "30px", height: "30px" }} />
-          <Person sx={{ width: "30px", height: "30px" }} />
-          <PowerSettingsNewOutlined
-            onClick={() => {
-              localStorage.clear();
-              navigate("/");
-            }}
-            sx={{ width: "30px", height: "30px" }}
-          />
-        </Box>
-      </Box>
+      <Navbar />
 
       {/* body */}
       <Box

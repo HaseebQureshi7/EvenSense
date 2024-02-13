@@ -3,6 +3,7 @@ import Landing from "../pages/Landing/Landing";
 import Signup from "../pages/Signup/Signup";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import AddProject from "../pages/AddProject/AddProject";
+import AddStage from "../pages/AddStage/AddStage";
 
 function MainNavigator() {
   return (
@@ -11,6 +12,7 @@ function MainNavigator() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/addProject" element={<AddProject />} />
+      <Route path="/addStage" element={<AddStage />} />
     </Routes>
   );
 }
