@@ -10,18 +10,39 @@ import DFlex from "./../../styles/Flex";
 import Navbar from "../../components/Navbar/Navbar";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import { Add, Cancel } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ProjectTypes from "../../types/ProjectTypes";
+import { UserDataContextTypes } from "../../types/UserDataContextTypes";
+import UserDataContext from "../../context/UserDataContext";
 
 function AddProject() {
+  const { userData }: UserDataContextTypes = useContext(UserDataContext);
+
   const [teamLead, setTeamLead] = useState("Haseeb Qureshi");
   const [teamMember, setTeamMember] = useState("Umair Najeeb");
+  const [projectDesignLink, setProjectDesignLink] = useState("");
+  const [projectErLink, setProjectErLink] = useState("");
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(teamLead);
-  }, [teamLead]);
+  function HandleAddProject(e: FormEvent) {
+    e.preventDefault();
+
+    const target = e.currentTarget as HTMLFormElement;
+    const AddProjectData: ProjectTypes = {
+      title: (target.title as any).value,
+      deadline: target.deadline.value,
+      members: [],
+      owner: userData?._id,
+      projectPurpose: target.projectPurpose.value,
+      teamLead: "dummy id placeholder",
+      figmaDesign: projectDesignLink,
+      projectErd: projectErLink,
+    };
+    console.log(AddProjectData);
+  }
+
   return (
     <Box
       sx={{
@@ -46,6 +67,7 @@ function AddProject() {
         {/* Main Header */}
         <PageHeader headerText="Add Project">
           <Button
+            onClick={() => navigate(-1)}
             variant="contained"
             size="medium"
             startIcon={<Cancel />}
@@ -55,11 +77,17 @@ function AddProject() {
           </Button>
         </PageHeader>
         {/* BODY */}
-        <Box sx={{ width: "100%", ...DFlex, gap: "25px" }} component={"form"}>
+        <Box
+          sx={{ width: "100%", ...DFlex, gap: "25px" }}
+          component={"form"}
+          onSubmit={HandleAddProject}
+        >
           <TextField
+            required
             size="medium"
             sx={{ width: "100%" }}
             label="title"
+            name="title"
             InputLabelProps={{ shrink: true }}
             placeholder="Project Title"
           />
@@ -73,9 +101,11 @@ function AddProject() {
             }}
           >
             <TextField
+              required
               size="medium"
               // sx={{ width: "100%" }}
               label="deadline"
+              name="deadline"
               InputLabelProps={{ shrink: true }}
               placeholder="30"
               type="number"
@@ -203,10 +233,12 @@ function AddProject() {
           >
             <PageHeader headerText="Project Documentation"></PageHeader>
             <TextField
+              required
               sx={{ width: "100%" }}
               multiline
               rows={10}
               label="Project Purpose"
+              name="projectPurpose"
             />
           </Box>
 
@@ -222,7 +254,13 @@ function AddProject() {
             }}
           >
             <PageHeader headerText="Project Design"></PageHeader>
-            <TextField sx={{ width: "100%" }} label="Project Design Link" />
+            <TextField
+              sx={{ width: "100%" }}
+              required
+              label="Project Design Link"
+              onChange={(e) => setProjectDesignLink(e.target.value)}
+            />
+            {/* ONLY SHOW THE IFRAME WHEN THERE IS A LINK PRESENT */}
             <Box
               component={"iframe"}
               sx={{
@@ -231,7 +269,11 @@ function AddProject() {
                 border: "2px solid lightgrey",
                 borderRadius: 2.5,
               }}
-              src="https://gitmind.com/app/docs/mg3vhq4g"
+              src={
+                projectDesignLink.length > 5
+                  ? projectDesignLink
+                  : "https://excalidraw.com/"
+              }
               allowFullScreen
               border={0}
             />
@@ -250,8 +292,10 @@ function AddProject() {
           >
             <PageHeader headerText="Project ER/SR Diagram"></PageHeader>
             <TextField
+              required
               sx={{ width: "100%" }}
               label="Project ER/SR Diagram Link"
+              onChange={(e) => setProjectErLink(e.target.value)}
             />
             <Box
               component={"iframe"}
@@ -261,13 +305,16 @@ function AddProject() {
                 border: "2px solid lightgrey",
                 borderRadius: 2.5,
               }}
-              src="https://gitmind.com/app/docs/mg3vhq4g"
+              src={
+                projectErLink.length > 5 ? projectErLink : "https://gitmind.com"
+              }
               allowFullScreen
               border={0}
             />
           </Box>
           <Button
-            onClick={() => navigate("/addStage")}
+            // onClick={() => navigate("/addStage")}
+
             variant="contained"
             size="medium"
             type="submit"
