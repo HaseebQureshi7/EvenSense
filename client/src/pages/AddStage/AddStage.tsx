@@ -2,6 +2,8 @@ import { Add, ArrowBack, Cancel } from "@mui/icons-material";
 import {
   Box,
   Button,
+  FormControl,
+  InputLabel,
   MenuItem,
   Select,
   TextField,
@@ -86,16 +88,22 @@ function AddStage() {
                 ),
               }}
             />
-            <Select
-              value={afterStage}
-              sx={{ px: 5 }}
-              label="After Stage"
-              onChange={(e) => setAfterStage(e.target.value)}
-            >
-              <MenuItem value={"Planning"}>Planning</MenuItem>
-              <MenuItem value={"Design"}>Design</MenuItem>
-              <MenuItem value={"Development"}>Development</MenuItem>
-            </Select>
+            <FormControl>
+              <InputLabel id="after-stage-select-label">
+                Stage Position
+              </InputLabel>
+              <Select
+                value={afterStage}
+                sx={{ px: 5 }}
+                label="Add After Stage"
+                labelId="after-stage-select-label"
+                onChange={(e) => setAfterStage(e.target.value)}
+              >
+                <MenuItem value={"Planning"}>Planning</MenuItem>
+                <MenuItem value={"Design"}>Design</MenuItem>
+                <MenuItem value={"Development"}>Development</MenuItem>
+              </Select>
+            </FormControl>
             <Button
               variant="contained"
               size="medium"
