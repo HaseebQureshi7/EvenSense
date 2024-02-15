@@ -1,6 +1,8 @@
 import {
   Box,
   Button,
+  FormControl,
+  InputLabel,
   MenuItem,
   Select,
   TextField,
@@ -15,6 +17,8 @@ import { useNavigate } from "react-router-dom";
 import ProjectTypes from "../../types/ProjectTypes";
 import { UserDataContextTypes } from "../../types/UserDataContextTypes";
 import UserDataContext from "../../context/UserDataContext";
+import { useMutation } from "@tanstack/react-query";
+import { useAxios } from "../../axios/useAxios";
 
 function AddProject() {
   const { userData }: UserDataContextTypes = useContext(UserDataContext);
@@ -26,6 +30,15 @@ function AddProject() {
 
   const navigate = useNavigate();
 
+  const handleCreateProject = (projectData : ProjectTypes) => {
+    return useAxios.post("/project", projectData);
+  }
+  const { mutate, status } = useMutation({
+    mutationFn: handleCreateProject,
+    onSuccess: (data) => {
+      console.log(data)
+    },
+  });
   function HandleAddProject(e: FormEvent) {
     e.preventDefault();
 
@@ -36,11 +49,11 @@ function AddProject() {
       members: [],
       owner: userData?._id,
       projectPurpose: target.projectPurpose.value,
-      teamLead: "dummy id placeholder",
+      teamLead: teamLead,
       figmaDesign: projectDesignLink,
       projectErd: projectErLink,
     };
-    console.log(AddProjectData);
+    mutate(AddProjectData)
   }
 
   return (
@@ -121,16 +134,19 @@ function AddProject() {
                 ),
               }}
             />
-            <Select
-              value={teamLead}
-              sx={{ px: 5 }}
-              label="Team Lead"
-              onChange={(e) => setTeamLead(e.target.value)}
-            >
-              <MenuItem value={"Haseeb Qureshi"}>Haseeb Qureshi</MenuItem>
-              <MenuItem value={"Umair Najeeb"}>Umair Najeeb</MenuItem>
-              <MenuItem value={"Saaib Qazi"}>Saaib Qazi</MenuItem>
-            </Select>
+            <FormControl>
+              <InputLabel id="after-stage-select-label">Team Lead</InputLabel>
+              <Select
+                value={teamLead}
+                sx={{ px: 5 }}
+                label="Team Lead"
+                onChange={(e) => setTeamLead(e.target.value)}
+              >
+                <MenuItem value={"Haseeb Qureshi"}>Haseeb Qureshi</MenuItem>
+                <MenuItem value={"Umair Najeeb"}>Umair Najeeb</MenuItem>
+                <MenuItem value={"Saaib Qazi"}>Saaib Qazi</MenuItem>
+              </Select>
+            </FormControl>
             <Button
               variant="contained"
               size="medium"
@@ -150,16 +166,21 @@ function AddProject() {
               gap: 10,
             }}
           >
-            <Select
-              value={teamMember}
-              sx={{ px: 5 }}
-              label="Team Member"
-              onChange={(e) => setTeamMember(e.target.value)}
-            >
-              <MenuItem value={"Haseeb Qureshi"}>Haseeb Qureshi</MenuItem>
-              <MenuItem value={"Umair Najeeb"}>Umair Najeeb</MenuItem>
-              <MenuItem value={"Saaib Qazi"}>Saaib Qazi</MenuItem>
-            </Select>
+            <FormControl>
+              <InputLabel id="after-stage-select-label">
+                Team Member 
+              </InputLabel>
+              <Select
+                value={teamMember}
+                sx={{ px: 5 }}
+                label="Team Member"
+                onChange={(e) => setTeamMember(e.target.value)}
+              >
+                <MenuItem value={"Haseeb Qureshi"}>Haseeb Qureshi</MenuItem>
+                <MenuItem value={"Umair Najeeb"}>Umair Najeeb</MenuItem>
+                <MenuItem value={"Saaib Qazi"}>Saaib Qazi</MenuItem>
+              </Select>
+            </FormControl>
             <Button
               variant="contained"
               size="medium"

@@ -1,11 +1,12 @@
 import mongoose, { Schema } from 'mongoose';
 
-const phaseSchema = new Schema({
-  phase: { type: String, enum: ['Planning', 'Designing', 'Development', 'Testing & Deployment'], required: true },
-  status: { type: String, enum: ['Incomplete', 'InProgress', 'Completed'], required: true },
+const stageSchema = new Schema({
+  title: { type: String, required : true},
+  position: { type: Number, required : true},
+  status: { type: String, enum: ['NotStarted', 'InProgress', 'Completed'], default : "NotStarted" },
   ofProject: { type: Schema.Types.ObjectId, ref: 'Project', required: true },
 }, {timestamps : true});
 
-const Phase = mongoose.model('Phase', phaseSchema);
+const Stage = mongoose.model('Stage', stageSchema);
 
-export default Phase;
+export default Stage;

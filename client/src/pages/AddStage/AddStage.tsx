@@ -122,9 +122,9 @@ function AddStage() {
                 labelId="after-stage-select-label"
                 onChange={(e) => setAfterStage(e.target.value)}
               >
-                <MenuItem value={"Planning"}>Planning</MenuItem>
-                <MenuItem value={"Design"}>Design</MenuItem>
-                <MenuItem value={"Development"}>Development</MenuItem>
+                <MenuItem value={"Planning"}>After Planning</MenuItem>
+                <MenuItem value={"Design"}>After Design</MenuItem>
+                <MenuItem value={"Development"}>After Development</MenuItem>
               </Select>
             </FormControl>
             <Button
